@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+.bg-angled-gradient {
+  background: linear-gradient(135deg, #93b3e2, #217bd6, #021c42);
+  background-blend-mode: multiply;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}

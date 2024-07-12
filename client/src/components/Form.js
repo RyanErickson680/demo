@@ -2,8 +2,37 @@
 import { useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Field, Label, Switch } from '@headlessui/react'
+import { createMessage } from '../api/message'
 
 export default function Form() {
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    console.log(formData)
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createMessage(formData);
+      console.log('Message sent successfully', response);
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  }
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -18,7 +47,7 @@ export default function Form() {
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -27,7 +56,9 @@ export default function Form() {
             <div className="mt-2.5">
               <input
                 id="first-name"
-                name="first-name"
+                name="firstName"
+                value={formData.name}
+                onChange={handleChange}
                 type="text"
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -41,7 +72,9 @@ export default function Form() {
             <div className="mt-2.5">
               <input
                 id="last-name"
-                name="last-name"
+                name="lastName"
+                value={formData.name}
+                onChange={handleChange}
                 type="text"
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -56,6 +89,8 @@ export default function Form() {
               <input
                 id="company"
                 name="company"
+                value={formData.name}
+                onChange={handleChange}
                 type="text"
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -71,6 +106,8 @@ export default function Form() {
                 id="email"
                 name="email"
                 type="email"
+                value={formData.name}
+                onChange={handleChange}
                 autoComplete="email"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -101,7 +138,9 @@ export default function Form() {
               </div>
               <input
                 id="phone-number"
-                name="phone-number"
+                name="phone"
+                value={formData.name}
+                onChange={handleChange}
                 type="tel"
                 autoComplete="tel"
                 className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -116,6 +155,8 @@ export default function Form() {
               <textarea
                 id="message"
                 name="message"
+                value={formData.name}
+                onChange={handleChange}
                 rows={4}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 defaultValue={''}
